@@ -31,12 +31,12 @@ end
 
 function onGameReady()
 	Background = createSprite("assets/Background.png", WINDOW_WIDTH,WINDOW_HEIGHT,0,0)
-	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, -1000, WINDOW_HEIGHT-35, {5000, 35}) -- en bas
-	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, -1000, 0, {5000, 35})	-- en haut
-	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, 50, 0, {100, 600})	-- à gauche
-	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, WINDOW_WIDTH-50, 0, {100, 600})	-- à droite
-	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, WINDOW_WIDTH+400, 0, {100, 600})  -- cage droite
-	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, -400, 0, {100, 600}) -- cage gauche
+	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, ResolutionHauteur(-1000), ResolutionHauteur(WINDOW_HEIGHT-35), {ResolutionLargeur(5000), ResolutionHauteur(35)}) -- en bas
+	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, ResolutionHauteur(-1000), 0, {ResolutionLargeur(5000), ResolutionHauteur(35)})	-- en haut
+	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, ResolutionHauteur(50), 0, {ResolutionLargeur(100), ResolutionHauteur(600)})	-- à gauche
+	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, ResolutionHauteur(WINDOW_WIDTH-50), 0, {ResolutionLargeur(100), ResolutionHauteur(600)})	-- à droite
+	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, ResolutionHauteur(1920+707/4+1+55), 0, {ResolutionLargeur(1), ResolutionHauteur(1500)})  -- cage droite
+	local backgroundBody1 = createBody("Static", "Box", 1, 0.1,0,false, ResolutionHauteur(-300), 0, {ResolutionLargeur(100), ResolutionHauteur(1500)}) -- cage gauche
 	local ggg = createBody({type="Dynamic", shape="Polygon"}, {mass=1,friction=1,restitution=0,sensor=false},550, 250,{34,50, 90, 120, -5, 250, 23, 80, 30, 56})
 	--local groundPhysics = physicalizeWithOffset(Background, 1, 1, "Static", 0, 1)
 	knight = createAnimation("assets/Knight_anim/walk.png", "assets/Knight_anim/walk.a", ResolutionLargeur(587/4),ResolutionHauteur(707/4), ResolutionLargeur(250),ResolutionHauteur(700), 0.1) 
@@ -45,6 +45,7 @@ function onGameReady()
 	knight2Body = physicalizeWithOffset(knight2, 1, 4, 0,false,"Dynamic", "Box",0.28, 0.09)
 	local ballSprite, BallBody = createBall()
 	flipSpriteHorizontal(knight2, true)
+	flipSpriteHorizontal(knight, false)
 	setAngularDamping(knightBody, 1)
 	setAngularDamping(knight2Body, 1)
 	a =createText(""..NbGoalRed,"assets/Fonts/CHILLER.TTF", 200, 0, 0, 0, 0, 255)
@@ -62,10 +63,12 @@ function onEngineRender()
 				NbGoalRed = NbGoalRed + 1
 				setText(a, ""..NbGoalRed)
 				deleteSprite(v.BallSprite)
+				deleteBody(v.BallBody)
 				table.remove(Balls, i)
 			elseif (x > WINDOW_WIDTH + x1) then
 				NbGoalBlue = NbGoalBlue + 1
 				setText(b, ""..NbGoalBlue)
+				deleteBody(v.BallBody)
 				deleteSprite(v.BallSprite)
 				table.remove(Balls, i)
 			end
@@ -129,11 +132,11 @@ if victory == true then
 	end
 	if (isKeyPressed[RIGHT]) then
 		setLinearVelocity(knight2Body,100, 0)
-		flipSpriteHorizontal(knight, false)
+		flipSpriteHorizontal(knight2, false)
 	end
 	if (isKeyPressed[LEFT]) then
 		setLinearVelocity(knight2Body,-100, 0)
-		flipSpriteHorizontal(knight, true)
+		flipSpriteHorizontal(knight2, true)
 	end
 	end
 end
