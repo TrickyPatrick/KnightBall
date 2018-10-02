@@ -148,11 +148,11 @@ function onEngineRender()
 			end
 		end
 	end
-	if NbGoalBlue == 10 and victory == true then
+	if NbGoalBlue >= 10 and victory == true then
 	victory = false
 	local u =createText("Victory !","assets/Fonts/CHILLER.TTF", ResolutionLargeur(255), ResolutionLargeur(700), ResolutionHauteur(400), 255, 0, 0)
 	end
-	if NbGoalRed == 10 and victory == true then
+	if NbGoalRed >= 10 and victory == true then
 	victory = false
 	local d =createText("Victory !","assets/Fonts/CHILLER.TTF", ResolutionLargeur(255), ResolutionLargeur(700), ResolutionHauteur(400), 0, 0, 255)
 	end
