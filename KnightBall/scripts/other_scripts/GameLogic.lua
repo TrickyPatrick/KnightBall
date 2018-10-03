@@ -385,9 +385,9 @@ function onEngineRender()
 	if AddBumper == 2 then
 	AddBumper = 0
 	math.randomseed(os.clock()*10000000000000)
-	 BUMPERX= math.random(ResolutionLargeur(200), ResolutionLargeur(1600))
+	 BUMPERX= math.random(ResolutionLargeur(100), ResolutionLargeur(1800))
 	math.floor(BUMPERX)
-	BUMPERY= math.random(ResolutionHauteur(200), ResolutionHauteur(750))
+	BUMPERY= math.random(ResolutionHauteur(50), ResolutionHauteur(1050))
 	math.floor(BUMPERY)
 	local BUMPER = createBody("Static", "Circle", 1, 4, 50,false,BUMPERX, BUMPERY, {ResolutionLargeur(30), 0})
 	local BackGroundSpriteBUMPER = createSprite("assets/Bumper.png", 30*2,30*2,BUMPERX*2,BUMPERY*2)
