@@ -263,6 +263,10 @@ end
 
 function onGameReady()
 	Background = createSprite("assets/Background.png", WINDOW_WIDTH,WINDOW_HEIGHT,0,0)
+	Power1Player1Text = createText("Power1 is ready !", "assets/Fonts/CHILLER.TTF",ResolutionLargeur(60),ResolutionLargeur(100),ResolutionHauteur(900),255,0,0)
+	Power1Player2Text = createText("Power1 is ready !", "assets/Fonts/CHILLER.TTF",ResolutionLargeur(60),ResolutionLargeur(1500),ResolutionHauteur(900),0,0,255)
+	Power2Player1Text = createText("Power2 is ready !", "assets/Fonts/CHILLER.TTF",ResolutionLargeur(60),ResolutionLargeur(100),ResolutionHauteur(800),255,0,0)
+	Power2Player2Text = createText("Power2 is ready !", "assets/Fonts/CHILLER.TTF",ResolutionLargeur(60),ResolutionLargeur(1500),ResolutionHauteur(800),0,0,255)
 	local backgroundBody11 = createBody("Static", "Box", 1, 0.1,0,false, ResolutionLargeur(-1000), ResolutionHauteur(1045), {ResolutionLargeur(5000), ResolutionHauteur(35)}) -- en bas
 	local backgroundBody12 = createBody("Static", "Box", 1, 0.1,0,false, ResolutionLargeur(-1000), 0, {ResolutionLargeur(5000), ResolutionHauteur(35)})	-- en haut
 	local backgroundBody13 = createBody("Static", "Box", 1, 0.1,0,false, ResolutionLargeur(50), 0, {ResolutionLargeur(100), ResolutionHauteur(600)})	-- à gauche
@@ -319,6 +323,7 @@ function onGameReady()
 	attachSpriteTo(BackGroundSprite6, backgroundBody6, -0.5, -0.5)
 	local BackGroundSprite7	= createSprite("assets/BackGroundSprite.jpg", ii3*2,uu3*2,pp3*2,oo4*2)
 	attachSpriteTo(BackGroundSprite7, backgroundBody7, -0.5, -0.5)
+	
 end
 AddEventHandler("OnEngineLoad", onGameReady)
 
@@ -479,11 +484,19 @@ if victory == true then
 		attachSpriteTo(Power2Player2Sprite, Power2Player2Body, -0.5, -0.5)
 		Power2Player2Animation = true
 	end
+	if (isKeyPressed[1073741914]) then
+	math.randomseed(os.clock()*100000000000)
+		setBodyTransform(knightBody, math.random(ResolutionLargeur(200),ResolutionLargeur(1700)), math.random(ResolutionHauteur(200),ResolutionHauteur(1000)), 0)
+	end
+	if (isKeyPressed[W]) then
+	math.randomseed(os.clock()*100000000000)
+		setBodyTransform(knight2Body, math.random(ResolutionLargeur(200),ResolutionLargeur(1700)), math.random(ResolutionHauteur(200),ResolutionHauteur(1000)), 0)
+	end
 end
 end
 AddEventHandler("OnKeyboardInput", OnKeyboardInput)
 
--- POWER 1 PART 
+-- POWER 1 PART
 
 function POWER1PLAYER1FUNC()
 setTimer(TIMEFORUPPOWER1PLAYER1,5000,1)
@@ -520,10 +533,10 @@ function POWER1 (dt)
 end
 AddEventHandler("OnEngineRender", POWER1)
 
--- POWER 2 PART
+-- POWER 2 PART  NOT FUCKING WORKING WHAT THE HELL IS WRONG ??????????????????????????????????????? IT IS WORKING NOWOWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 
 function POWER2PLAYER1FUNC()
-	setTimer(TIMEFORUPPOWER2PLAYER1,20000,1)
+	setTimer(TIMEFORUPPOWER2PLAYER1,10000,1)
 	deleteSprite(Power2Player1Sprite)
 	deleteBody(Power2Player1Body)
 end
@@ -538,25 +551,56 @@ end
 
 
 function POWER2PLAYER2FUNC()
-setTimer(TIMEFORUPPOWER1PLAYER2,5000,1)
-deleteSprite(Power2Player2Sprite)
-deleteBody(Power2Player2Body)
+	setTimer(TIMEFORUPPOWER2PLAYER2,10000,1)
+	deleteSprite(Power2Player2Sprite)
+	deleteBody(Power2Player2Body)
 end
 
 function POWER2 (dt)
 	if Power2Player1Animation then
-	POWER2PLAYER1UP = false
-	Power2Player1Animation = false
-	setTimer(POWER2PLAYER1FUNC,5000,1)
+		POWER2PLAYER1UP = false
+		Power2Player1Animation = false
+		setTimer(POWER2PLAYER1FUNC,5000,1)
 	end
 	if Power2Player2Animation then
-	POWER2PLAYER2UP = false
-	Power2Player2Animation = false
-	setTimer(POWER2PLAYER2FUNC,5000,1)
+		POWER2PLAYER2UP = false
+		Power2Player2Animation = false
+		setTimer(POWER2PLAYER2FUNC,5000,1)
 	end
 end
 AddEventHandler("OnEngineRender", POWER2)
 
+-- 														WORKING KEEP IT UP BRO
+-- TEXT
+
+function PowerText(dt)
+	if POWER1PLAYER1UP then
+	setText(Power1Player1Text, "Power 1 is ready !")
+	end
+	if POWER1PLAYER2UP then
+	setText(Power1Player2Text, "Power 1 is ready !")
+	end
+	if POWER1PLAYER1UP == false then
+	setText(Power1Player1Text, "")
+	end
+	if POWER1PLAYER2UP == false then
+	setText(Power1Player2Text, "")
+	end
+	if POWER2PLAYER1UP then
+	setText(Power2Player1Text, "Power 2 is ready !")
+	end
+	if POWER2PLAYER2UP then
+	print("IT WORKS")
+	setText(Power2Player2Text, "Power 2 is ready !")
+	end
+	if POWER2PLAYER1UP == false then
+	setText(Power2Player1Text, "")
+	end
+	if POWER2PLAYER2UP == false then
+	setText(Power2Player2Text, "")
+	end
+end
+AddEventHandler("OnEngineRender", PowerText)
 
 function OnMouseMove(PosX, PosY)
 	
