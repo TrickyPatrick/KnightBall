@@ -17,6 +17,12 @@ local Balls1 = {}
 local Balls2 = {}
 local Balls3= {}
 local AddBumper = 0
+local Power1Player1Animation = false
+local Power1Player2Animation = false
+local POWER1PLAYER1UP = true
+local POWER1PLAYER2UP = true
+local POWER2PLAYER1UP = true
+local POWER2PLAYER2UP = true
 function lol ()
 RandomBall = GeneratedBall()
 AddBumper = AddBumper + 1
@@ -118,6 +124,8 @@ function GeneratedBumperLargeur(x)
 	n = 1+p+c+pp+cc+ppp+ccc+pppp+cccc
 	return n
 end
+
+
 
 function GeneratedBumperLongueur(x)
 	math.randomseed(os.clock()*100000000000)
@@ -277,11 +285,11 @@ function onGameReady()
 	local ballSprite1, BallBody1 = createBall1()
 	flipSpriteHorizontal(knight2, true)
 	flipSpriteHorizontal(knight, false)
-	setAngularDamping(knightBody, 1)
-	setAngularDamping(knight2Body, 1)
+	setAngularDamping(knightBody, 0)
+	setAngularDamping(knight2Body, 0)
 	a =createText(""..NbGoalRed,"assets/Fonts/CHILLER.TTF", ResolutionHauteur(200), 0, 0, 0, 0, 255)
 	b =createText(""..NbGoalBlue,"assets/Fonts/CHILLER.TTF", ResolutionHauteur(200), ResolutionLargeur(1770), 0, 255, 0, 0)
-	setTimer(lol, 3000,-1)
+	setTimer(lol, 2000,-1)
 	local pp2 = ResolutionLargeur(200*GeneratedBumper2())
 	local oo2 = ResolutionHauteur(860)
 	local ii2 = ResolutionLargeur(30*GeneratedBumper2())
@@ -382,12 +390,12 @@ function onEngineRender()
 	victory = false
 	local d =createText("Victory !","assets/Fonts/CHILLER.TTF", ResolutionLargeur(255), ResolutionLargeur(700), ResolutionHauteur(400), 0, 0, 255)
 	end
-	if AddBumper == 2 then
+	if AddBumper == 5 then
 	AddBumper = 0
 	math.randomseed(os.clock()*10000000000000)
-	 BUMPERX= math.random(ResolutionLargeur(100), ResolutionLargeur(1800))
+	 BUMPERX= math.random(ResolutionLargeur(200), ResolutionLargeur(1600))
 	math.floor(BUMPERX)
-	BUMPERY= math.random(ResolutionHauteur(50), ResolutionHauteur(1050))
+	BUMPERY= math.random(ResolutionHauteur(200), ResolutionHauteur(950))
 	math.floor(BUMPERY)
 	local BUMPER = createBody("Static", "Circle", 1, 4, 50,false,BUMPERX, BUMPERY, {ResolutionLargeur(30), 0})
 	local BackGroundSpriteBUMPER = createSprite("assets/Bumper.png", 30*2,30*2,BUMPERX*2,BUMPERY*2)
@@ -396,6 +404,9 @@ function onEngineRender()
 	
 end
 AddEventHandler("OnEngineRender", onEngineRender)
+
+
+
 
 
 
@@ -414,17 +425,17 @@ if victory == true then
 	elseif (state == 769) then
 		isKeyPressed[key] = false
 	end
-	if (isKeyPressed[Z]) then
+	if (isKeyPressed[R]) then
 		setLinearVelocity(knightBody,0, ResolutionHauteur(-60))
 	end
-	if (isKeyPressed[S]) then
+	if (isKeyPressed[F]) then
 		setLinearVelocity(knightBody,0, ResolutionHauteur(60))
 	end
-	if (isKeyPressed[D]) then
+	if (isKeyPressed[G]) then
 		setLinearVelocity(knightBody,ResolutionLargeur(100), 0)
 		flipSpriteHorizontal(knight, false)
 	end
-	if (isKeyPressed[Q]) then
+	if (isKeyPressed[D]) then
 		setLinearVelocity(knightBody,ResolutionLargeur(-100), 0)
 		flipSpriteHorizontal(knight, true)
 	end
@@ -444,9 +455,107 @@ if victory == true then
 		setLinearVelocity(knight2Body,ResolutionLargeur(-100), 0)
 		flipSpriteHorizontal(knight2, true)
 	end
+	if (isKeyPressed[A] and POWER1PLAYER1UP) then 
+		Power1Player1Body = createBody("Static", "Box", 1, 0.1,0,false, ResolutionLargeur(10), ResolutionHauteur(800), {ResolutionLargeur(50), ResolutionHauteur(200)})	-- à gauche
+		Power1Player1Sprite = createSprite("assets/BackGroundSprite.jpg", 50*2,150*2,10*2,10*2)
+		attachSpriteTo(Power1Player1Sprite, Power1Player1Body, -0.5, -0.5)
+		Power1Player1Animation = true
+	end
+	if (isKeyPressed[KeypadQuatre] and POWER1PLAYER2UP) then 
+		Power1Player2Body = createBody("Static", "Box", 1, 0.1,0,false, ResolutionLargeur(1920), ResolutionHauteur(800), {ResolutionLargeur(50), ResolutionHauteur(200)})	-- à droite
+		Power1Player2Sprite = createSprite("assets/BackGroundSprite.jpg", 50*2,150*2,10*2,10*2)
+		attachSpriteTo(Power1Player2Sprite, Power1Player2Body, -0.5, -0.5)
+		Power1Player2Animation = true
+	end
+		if (isKeyPressed[Q] and POWER2PLAYER1UP) then 
+		Power2Player1Body = createBody("Static", "Box", 1, 0.1,0,false, ResolutionLargeur(1920), ResolutionHauteur(800), {ResolutionLargeur(50), ResolutionHauteur(200)})	-- à droite
+		Power2Player1Sprite = createSprite("assets/BackGroundSprite.jpg", 50*2,150*2,10*2,10*2)
+		attachSpriteTo(Power2Player1Sprite, Power2Player1Body, -0.5, -0.5)
+		Power2Player1Animation = true
+	end
+	if (isKeyPressed[KeypadCinq] and POWER2PLAYER2UP) then 
+		Power2Player2Body = createBody("Static", "Box", 1, 0.1,0,false, ResolutionLargeur(10), ResolutionHauteur(800), {ResolutionLargeur(50), ResolutionHauteur(200)})	-- à gauche
+		Power2Player2Sprite = createSprite("assets/BackGroundSprite.jpg", 50*2,150*2,10*2,10*2)
+		attachSpriteTo(Power2Player2Sprite, Power2Player2Body, -0.5, -0.5)
+		Power2Player2Animation = true
 	end
 end
+end
 AddEventHandler("OnKeyboardInput", OnKeyboardInput)
+
+-- POWER 1 PART 
+
+function POWER1PLAYER1FUNC()
+setTimer(TIMEFORUPPOWER1PLAYER1,5000,1)
+deleteSprite(Power1Player1Sprite)
+deleteBody(Power1Player1Body)
+end
+
+function TIMEFORUPPOWER1PLAYER1()
+POWER1PLAYER1UP = true
+end
+
+function TIMEFORUPPOWER1PLAYER2()
+POWER1PLAYER2UP = true
+end
+
+
+function POWER1PLAYER2FUNC()
+setTimer(TIMEFORUPPOWER1PLAYER2,5000,1)
+deleteSprite(Power1Player2Sprite)
+deleteBody(Power1Player2Body)
+end
+
+function POWER1 (dt)
+	if Power1Player1Animation then
+	POWER1PLAYER1UP = false
+	Power1Player1Animation = false
+	setTimer(POWER1PLAYER1FUNC,100,1)
+	end
+	if Power1Player2Animation then
+	POWER1PLAYER2UP = false
+	Power1Player2Animation = false
+	setTimer(POWER1PLAYER2FUNC,100,1)
+	end
+end
+AddEventHandler("OnEngineRender", POWER1)
+
+-- POWER 2 PART
+
+function POWER2PLAYER1FUNC()
+	setTimer(TIMEFORUPPOWER2PLAYER1,20000,1)
+	deleteSprite(Power2Player1Sprite)
+	deleteBody(Power2Player1Body)
+end
+
+function TIMEFORUPPOWER2PLAYER1()
+	POWER2PLAYER1UP = true
+end
+
+function TIMEFORUPPOWER2PLAYER2()
+	POWER2PLAYER2UP = true
+end
+
+
+function POWER2PLAYER2FUNC()
+setTimer(TIMEFORUPPOWER1PLAYER2,5000,1)
+deleteSprite(Power2Player2Sprite)
+deleteBody(Power2Player2Body)
+end
+
+function POWER2 (dt)
+	if Power2Player1Animation then
+	POWER2PLAYER1UP = false
+	Power2Player1Animation = false
+	setTimer(POWER2PLAYER1FUNC,5000,1)
+	end
+	if Power2Player2Animation then
+	POWER2PLAYER2UP = false
+	Power2Player2Animation = false
+	setTimer(POWER2PLAYER2FUNC,5000,1)
+	end
+end
+AddEventHandler("OnEngineRender", POWER2)
 
 
 function OnMouseMove(PosX, PosY)
