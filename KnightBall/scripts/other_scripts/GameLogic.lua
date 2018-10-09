@@ -19,6 +19,8 @@ local Balls3= {}
 local AddBumper = 0
 local Power1Player1Animation = false
 local Power1Player2Animation = false
+local TeleportPlayer1 = true
+local TeleportPlayer2 = true
 local POWER1PLAYER1UP = true
 local POWER1PLAYER2UP = true
 local POWER2PLAYER1UP = true
@@ -263,6 +265,8 @@ end
 
 function onGameReady()
 	Background = createSprite("assets/Background.png", WINDOW_WIDTH,WINDOW_HEIGHT,0,0)
+	TeleportPlayer2Text = createText("Teleport is ready !", "assets/Fonts/CHILLER.TTF",ResolutionLargeur(60),ResolutionLargeur(100),ResolutionHauteur(700),255,0,0)
+	TeleportPlayer1Text = createText("Teleport is ready !", "assets/Fonts/CHILLER.TTF",ResolutionLargeur(60),ResolutionLargeur(1500),ResolutionHauteur(700),0,0,255)
 	Power1Player1Text = createText("Power1 is ready !", "assets/Fonts/CHILLER.TTF",ResolutionLargeur(60),ResolutionLargeur(100),ResolutionHauteur(900),255,0,0)
 	Power1Player2Text = createText("Power1 is ready !", "assets/Fonts/CHILLER.TTF",ResolutionLargeur(60),ResolutionLargeur(1500),ResolutionHauteur(900),0,0,255)
 	Power2Player1Text = createText("Power2 is ready !", "assets/Fonts/CHILLER.TTF",ResolutionLargeur(60),ResolutionLargeur(100),ResolutionHauteur(800),255,0,0)
@@ -484,18 +488,30 @@ if victory == true then
 		attachSpriteTo(Power2Player2Sprite, Power2Player2Body, -0.5, -0.5)
 		Power2Player2Animation = true
 	end
-	if (isKeyPressed[1073741914]) then
-	math.randomseed(os.clock()*100000000000)
-		setBodyTransform(knightBody, math.random(ResolutionLargeur(200),ResolutionLargeur(1700)), math.random(ResolutionHauteur(200),ResolutionHauteur(1000)), 0)
-	end
-	if (isKeyPressed[W]) then
+	if (isKeyPressed[1073741914] and TeleportPlayer1 == true) then
 	math.randomseed(os.clock()*100000000000)
 		setBodyTransform(knight2Body, math.random(ResolutionLargeur(200),ResolutionLargeur(1700)), math.random(ResolutionHauteur(200),ResolutionHauteur(1000)), 0)
+		TeleportPlayer1 = false
+		setTimer(TELEPORTPLAYER1UP,2000,1)
+	end
+	if (isKeyPressed[W] and TeleportPlayer2 == true) then
+	math.randomseed(os.clock()*100000000000)
+		setBodyTransform(knightBody, math.random(ResolutionLargeur(200),ResolutionLargeur(1700)), math.random(ResolutionHauteur(200),ResolutionHauteur(1000)), 0)
+		TeleportPlayer2 = false
+		setTimer(TELEPORTPLAYER2UP,2000,1)
 	end
 end
 end
 AddEventHandler("OnKeyboardInput", OnKeyboardInput)
+-- TELEPORT PLAYER 1 AND 2
 
+function TELEPORTPLAYER1UP()
+TeleportPlayer1 = true
+end
+
+function TELEPORTPLAYER2UP()
+TeleportPlayer2 = true
+end
 -- POWER 1 PART
 
 function POWER1PLAYER1FUNC()
@@ -599,6 +615,19 @@ function PowerText(dt)
 	if POWER2PLAYER2UP == false then
 	setText(Power2Player2Text, "")
 	end
+	if TeleportPlayer1 then
+	setText(TeleportPlayer1Text, "Teleport is ready !")
+	end
+	if TeleportPlayer2 then
+	setText(TeleportPlayer2Text, "Teleport is ready !")
+	end
+	if TeleportPlayer1 == false then
+	setText(TeleportPlayer1Text, "")
+	end
+	if TeleportPlayer2 == false then
+	setText(TeleportPlayer2Text, "")
+	end
+	
 end
 AddEventHandler("OnEngineRender", PowerText)
 
