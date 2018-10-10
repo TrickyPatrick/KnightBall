@@ -3,7 +3,7 @@
 ***This game is about knights fighting to put balls in the enemy territory, myself I can't explain what's happpening but this is happening*** </br>
 
 
-##**Player 1:**</br>
+**Player 1:**</br>
 R Moving up</br>
 F Moving down</br>
 D Moving left</br>
@@ -12,7 +12,7 @@ A Power 1</br>
 Q Power 2</br>
 W Use teleport</br>
 
-##**Player 2:**</br>
+**Player 2:**</br>
 ArrowUP Moving up</br>
 ArrowDown Moving down</br>
 ArrowLeft Moving left</br>
@@ -21,7 +21,7 @@ K Power 1</br>
 L Power 2</br>
 M Use teleport</br>
 
-##**Random Facts:**</br>
+**Random Facts:**</br>
 Teleport is totally random</br>
 Black Ball is 1 point</br>
 Green Ball is 3 points</br>
