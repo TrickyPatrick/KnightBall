@@ -470,7 +470,7 @@ if victory == true then
 		attachSpriteTo(Power1Player1Sprite, Power1Player1Body, -0.5, -0.5)
 		Power1Player1Animation = true
 	end
-	if (isKeyPressed[KeypadQuatre] and POWER1PLAYER2UP) then 
+	if (isKeyPressed[K] and POWER1PLAYER2UP) then 
 		Power1Player2Body = createBody("Static", "Box", 1, 0.1,0,false, ResolutionLargeur(1920), ResolutionHauteur(800), {ResolutionLargeur(50), ResolutionHauteur(200)})	-- à droite
 		Power1Player2Sprite = createSprite("assets/BackGroundSprite.jpg", 50*2,150*2,10*2,10*2)
 		attachSpriteTo(Power1Player2Sprite, Power1Player2Body, -0.5, -0.5)
@@ -482,13 +482,13 @@ if victory == true then
 		attachSpriteTo(Power2Player1Sprite, Power2Player1Body, -0.5, -0.5)
 		Power2Player1Animation = true
 	end
-	if (isKeyPressed[KeypadCinq] and POWER2PLAYER2UP) then 
+	if (isKeyPressed[L] and POWER2PLAYER2UP) then 
 		Power2Player2Body = createBody("Static", "Box", 1, 0.1,0,false, ResolutionLargeur(10), ResolutionHauteur(800), {ResolutionLargeur(50), ResolutionHauteur(200)})	-- à gauche
 		Power2Player2Sprite = createSprite("assets/BackGroundSprite.jpg", 50*2,150*2,10*2,10*2)
 		attachSpriteTo(Power2Player2Sprite, Power2Player2Body, -0.5, -0.5)
 		Power2Player2Animation = true
 	end
-	if (isKeyPressed[1073741914] and TeleportPlayer1 == true) then
+	if (isKeyPressed[M] and TeleportPlayer1 == true) then
 	math.randomseed(os.clock()*100000000000)
 		setBodyTransform(knight2Body, math.random(ResolutionLargeur(200),ResolutionLargeur(1700)), math.random(ResolutionHauteur(200),ResolutionHauteur(1000)), 0)
 		TeleportPlayer1 = false
