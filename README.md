@@ -3,7 +3,7 @@
 ***This game is about knights fighting to put balls in the enemy territory, myself I can't explain what's happpening but this is happening*** 
 
 
-**Player 1:**
+**Player 1:**</br>
 R Moving up
 F Moving down
 D Moving left
